@@ -1,1 +1,20 @@
-{}
+{
+  "name": "proshop",
+  "version": "1.0.0",
+  "description": "eCommerce application build with the mern stack",
+  "main": "server.js",
+  "type": "module",
+  "scripts": {
+    "start": "node backend/server.js",
+    "server": "nodemon run backend/server.js",
+    "client": "npm start --prefix frontend",
+    "dev": "concurrently \"npm run server\" \"npm run client\""
+  },
+  "author": "Kshitiz",
+  "license": "ISC",
+  "dependencies": {
+    "concurrently": "^8.2.2",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2"
+  }
+}
