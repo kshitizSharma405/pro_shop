@@ -1,12 +1,22 @@
 import asyncHandler from "../middlewares/asyncHandler.js";
 import Product from "../models/productModel.js";
+/**
+ * @desc    Fetch all products
+ * @route   Get /api/products
+ * @access  Public
+ */
 
 const getAllProducts = asyncHandler(async (req, res, next) => {
   const products = await Product.find({});
   res.json(products);
 });
 
-const getProductByid = asyncHandler(async (req, res, next) => {
+/**
+ * @desc    Fetch a products
+ * @route   Get /api/product/:id
+ * @access  Public
+ */
+const getProductById = asyncHandler(async (req, res, next) => {
   const { id } = await req.params;
   const product = await Product.findById(id);
   if (product) {
@@ -17,4 +27,4 @@ const getProductByid = asyncHandler(async (req, res, next) => {
   }
 });
 
-export { getAllProducts, getProductByid };
+export { getAllProducts, getProductById };

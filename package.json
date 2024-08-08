@@ -1,7 +1,7 @@
 {
   "name": "proshop",
   "version": "1.0.0",
-  "description": "eCommerce application build with the mern stack",
+  "description": "eCommerce application built with the MERN stack",
   "main": "server.js",
   "type": "module",
   "scripts": {
@@ -19,9 +19,24 @@
     "bootstrap": "^5.3.3",
     "colors": "^1.4.0",
     "concurrently": "^8.2.2",
+    "cookie-parser": "^1.4.6",
     "dotenv": "^16.4.5",
+    "eslint-config-airbnb": "^19.0.4",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-import": "^2.29.1",
+    "eslint-plugin-prettier": "^5.2.1",
     "express": "^4.19.2",
+    "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.5.1",
-    "react-bootstrap": "^2.10.4"
+    "prettier": "^3.3.3",
+    "proshop": "file:",
+    "react-bootstrap": "^2.10.4",
+    "react-toastify": "^10.0.5"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.8.0",
+    "eslint": "^8.57.0",
+    "eslint-plugin-react": "^7.35.0",
+    "globals": "^15.9.0"
   }
 }
