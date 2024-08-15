@@ -3,7 +3,7 @@ import dotenv from "dotenv";
 import connectDb from "./config/db.js";
 import cookieParser from "cookie-parser";
 import { errorHandler, notFound } from "./middlewares/errorMiddleware.js";
-import productRoutes from "./routes/productRouter.js";
+import productRoutes from "./routes/productRoutes.js";
 import usersRoutes from "./routes/userRoutes.js";
 
 dotenv.config();

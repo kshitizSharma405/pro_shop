@@ -1,16 +1,30 @@
-import { apiSlice } from "@reduxjs/toolkit";
-import USERS_URL from "../constants.js";
+import { apiSlice } from "./apiSlice.js";
+import { USERS_URL } from "../constants.js";
 
 const usersApiSLice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     login: builder.mutation({
       query: (data) => ({
-        url: USERS_URL / auth,
+        url: `${USERS_URL}/auth`,
         method: "POST",
         body: data,
+      }),
+    }),
+    register: builder.mutation({
+      query: (data) => ({
+        url: USERS_URL,
+        method: "POST",
+        body: data,
+      }),
+    }),
+    logout: builder.mutation({
+      query: () => ({
+        url: `${USERS_URL}/logout`,
+        method: "POST",
       }),
     }),
   }),
 });
 
-export const { useLoginMutation } = usersApiSLice;
+export const { useLoginMutation, useRegisterMutation, useLogoutMutation } =
+  usersApiSLice;
