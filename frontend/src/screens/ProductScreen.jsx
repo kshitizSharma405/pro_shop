@@ -11,10 +11,10 @@ import {
   Form,
 } from "react-bootstrap";
 import { useDispatch } from "react-redux";
-import Rating from "../components/Rating.js";
+import Rating from "../components/Rating.jsx";
 import { useGetProductDetailsQuery } from "../slices/productsApiSlice.js";
-import Loader from "../components/Loader.js";
-import Message from "../components/Message";
+import Loader from "../components/Loader.jsx";
+import Message from "../components/Message.jsx";
 import { addToCart } from "../slices/cartSlice.js";
 const ProductScreen = () => {
   const [qty, setQty] = useState(1);

@@ -2,9 +2,9 @@ import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { Form, Button } from "react-bootstrap";
-import FormContainer from "../components/FormContainer.js";
+import FormContainer from "../components/FormContainer.jsx";
 import { saveShippingAddress } from "../slices/cartSlice.js";
-import CheckOutSteps from "../components/CheckOutSteps.js";
+import CheckOutSteps from "../components/CheckOutSteps.jsx";
 const ShippingScreen = () => {
   const cart = useSelector((state) => state.cart);
   const { shippingAddress } = cart;

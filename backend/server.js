@@ -5,7 +5,7 @@ import cookieParser from "cookie-parser";
 import { errorHandler, notFound } from "./middlewares/errorMiddleware.js";
 import productRoutes from "./routes/productRoutes.js";
 import usersRoutes from "./routes/userRoutes.js";
-
+import orderRoutes from "./routes/orderRoutes.js";
 dotenv.config();
 const port = process.env.PORT || 5000;
 
@@ -25,6 +25,11 @@ app.get("/", (req, res) => {
 
 app.use("/api/products", productRoutes);
 app.use("/api/users", usersRoutes);
+app.use("/api/orders", orderRoutes);
+app.get("/api/config/paypal", (req, res) =>
+  res.send({ clientId: process.env.PAYPAL_CLIENT_ID })
+);
+
 app.use(notFound);
 app.use(errorHandler);
 

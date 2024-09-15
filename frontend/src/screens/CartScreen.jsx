@@ -11,7 +11,7 @@ import {
 } from "react-bootstrap";
 import { FaTrash } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
-import Message from "../components/Message.js";
+import Message from "../components/Message.jsx";
 import { addToCart, removeFromCart } from "../slices/cartSlice.js";
 
 const CartScreen = () => {
