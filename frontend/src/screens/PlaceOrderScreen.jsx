@@ -6,7 +6,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import Message from "../components/Message.jsx";
 import Loader from "../components/Loader.jsx";
-import { useCreateOrderMutation } from "../slices/ordersApiSlice.js";
+import { useCreateOrderMutation } from "../slices/orderApiSlice.js";
 import { clearCartItems } from "../slices/cartSlice.js";
 const PlaceOrderScreen = () => {
   const navigate = useNavigate();

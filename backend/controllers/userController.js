@@ -9,7 +9,9 @@ import generateToken from "../utils/generateToken.js";
 
 const authUser = asyncHandler(async (req, res) => {
   const { email, password } = req.body;
+
   const user = await User.findOne({ email });
+
   if (user && (await user.matchPassword(password))) {
     generateToken(res, user._id);
 
@@ -117,7 +119,8 @@ const updateUserProfile = asyncHandler(async (req, res) => {
  */
 
 const getUsers = asyncHandler(async (req, res) => {
-  res.send("Get users");
+  const users = await User.find({});
+  res.status(200).json(users);
 });
 
 /**
@@ -127,7 +130,16 @@ const getUsers = asyncHandler(async (req, res) => {
  */
 
 const deleteUser = asyncHandler(async (req, res) => {
-  res.send("delete user");
+  const user = await User.findById(req.params.id);
+  if (user) {
+    if (user.isAdmin) {
+      res.status(400);
+      throw new Error("Cannot delete admin user");
+    } else {
+      await User.deleteOne({ _id: user._id });
+      res.status(201).json({ message: "User deleted successfully" });
+    }
+  }
 });
 
 /**
@@ -137,6 +149,13 @@ const deleteUser = asyncHandler(async (req, res) => {
  */
 
 const getUserById = asyncHandler(async (req, res) => {
+  const user = await User.findById(req.params.id).select("-password");
+  if (user) {
+    res.status(200).json(user);
+  } else {
+    res.status(404);
+    throw new Error("User not found");
+  }
   res.send("Get user by id");
 });
 
@@ -147,7 +166,22 @@ const getUserById = asyncHandler(async (req, res) => {
  */
 
 const updateUser = asyncHandler(async (req, res) => {
-  res.send("Update user");
+  const user = await User.findById(req.params.id);
+  if (user) {
+    user.name = req.body.name || user.name;
+    user.email = req.body.email || user.email;
+    user.isAdmin = req.body.isAdmin || user.isAdmin;
+    const updatedUser = await user.save();
+    res.status(200).json({
+      _id: updateUser._id,
+      name: updatedUser.name,
+      email: updatedUser.email,
+      isAdmin: updatedUser.isAdmin,
+    });
+  } else {
+    res.status(404);
+    throw new Error("User not found");
+  }
 });
 
 export {
