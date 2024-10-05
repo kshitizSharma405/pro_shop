@@ -8,6 +8,7 @@ import { LinkContainer } from "react-router-bootstrap";
 import { useLogoutMutation } from "../slices/usersApiSlice.js";
 import { logout } from "../slices/authSlice.js";
 import { toast } from "react-toastify";
+import SearchBox from "./SearchBox.jsx";
 
 const Header = () => {
   const { cartItems } = useSelector((state) => state.cart);
@@ -37,10 +38,10 @@ const Header = () => {
           <Navbar.Toggle aria-controls="basic-navbar-nav"></Navbar.Toggle>
           <Navbar.Collapse>
             <Nav className="ms-auto">
+              <SearchBox />
               <LinkContainer to="/cart">
                 <Nav.Link>
-                  <FaShoppingCart />
-                  Cart{" "}
+                  <FaShoppingCart /> Cart{" "}
                   {cartItems.length > 0 && (
                     <Badge pill bg="success" style={{ marginLeft: "5px" }}>
                       {cartItems.reduce((acc, curr) => acc + curr.qty, 0)}

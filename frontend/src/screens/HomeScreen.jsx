@@ -4,11 +4,25 @@ import Product from "../components/Product.jsx";
 import { useGetProductsQuery } from "../slices/productsApiSlice.js";
 import Loader from "../components/Loader.jsx";
 import Message from "../components/Message.jsx";
+import { Link, useParams } from "react-router-dom";
+import Paginate from "../components/Paginate.jsx";
+import ProductCarousel from "../components/ProductCarousel.jsx";
 const HomeScreen = () => {
-  const { data: products, error, isLoading } = useGetProductsQuery();
+  const { pageNumber, keyword } = useParams();
+  const { data, error, isLoading } = useGetProductsQuery({
+    pageNumber,
+    keyword,
+  });
 
   return (
-    <React.Fragment>
+    <>
+      {!keyword ? (
+        <ProductCarousel />
+      ) : (
+        <Link to="/" className="btn btn-light mb-4">
+          Go Back
+        </Link>
+      )}
       {isLoading ? (
         <Loader></Loader>
       ) : error ? (
@@ -16,11 +30,11 @@ const HomeScreen = () => {
           {error?.data?.message || error.error}
         </Message>
       ) : (
-        <React.Fragment>
+        <>
           <h1>Latest Products</h1>
 
           <Row>
-            {products.map((product) => {
+            {data.products.map((product) => {
               return (
                 <Col sm={12} md={6} lg={4} xl={3} key={product._id}>
                   <Product product={product} />
@@ -28,9 +42,14 @@ const HomeScreen = () => {
               );
             })}
           </Row>
-        </React.Fragment>
+          <Paginate
+            page={data.page}
+            pages={data.pages}
+            keyword={keyword ? keyword : ""}
+          />
+        </>
       )}
-    </React.Fragment>
+    </>
   );
 };
 
