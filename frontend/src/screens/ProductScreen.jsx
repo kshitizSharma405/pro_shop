@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
+import Meta from "../components/Meta.jsx";
 import {
   Row,
   Col,
@@ -58,7 +59,7 @@ const ProductScreen = () => {
   };
 
   return (
-    <React.Fragment>
+    <>
       <Link className="btn btn-light my-3" to="/">
         Go Back
       </Link>
@@ -70,7 +71,8 @@ const ProductScreen = () => {
           {error?.data?.message || error.error}
         </Message>
       ) : (
-        <React.Fragment>
+        <>
+          <Meta title={product.name} />
           <Row>
             <Col md={5}>
               <Image
@@ -226,9 +228,9 @@ const ProductScreen = () => {
               </ListGroup>
             </Col>
           </Row>
-        </React.Fragment>
+        </>
       )}
-    </React.Fragment>
+    </>
   );
 };
 export default ProductScreen;
