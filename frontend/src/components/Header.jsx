@@ -8,6 +8,7 @@ import { LinkContainer } from "react-router-bootstrap";
 import { useLogoutMutation } from "../slices/usersApiSlice.js";
 import { logout } from "../slices/authSlice.js";
 import { toast } from "react-toastify";
+import { resetCart } from "../slices/cartSlice.js";
 import SearchBox from "./SearchBox.jsx";
 
 const Header = () => {
@@ -20,6 +21,7 @@ const Header = () => {
     try {
       await logoutApiCall().unwrap();
       dispatch(logout());
+      dispatch(resetCart());
       navigate("/login");
     } catch (error) {
       toast.error(error?.data?.message || error?.error);
