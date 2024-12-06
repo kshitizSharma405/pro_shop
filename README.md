@@ -1,6 +1,6 @@
-# **Proshop2 E-Commerce Application**
+# **Proshop E-Commerce Application**
 
-Proshop2 is a fully functional e-commerce platform built with the MERN (MongoDB, Express.js, React, Node.js) stack. This application provides PayPal payment integration, Redux Toolkit for state management, and a responsive UI with React-Bootstrap.
+Proshop is a fully functional e-commerce platform built with the MERN (MongoDB, Express.js, React, Node.js) stack. This application provides PayPal payment integration, Redux Toolkit for state management, and a responsive UI with React-Bootstrap.
 
 ---
 
