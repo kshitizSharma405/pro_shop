@@ -84,7 +84,7 @@ Key `npm` scripts available in the project:
 
 ## **Live Demo**
 
-[Proshop2 Live Demo](https://e-comm-platform.onrender.com)
+[Proshop Live Demo](https://e-comm-platform.onrender.com)
 
 ---
 
