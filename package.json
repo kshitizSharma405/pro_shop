@@ -1,5 +1,5 @@
 {
-  "name": "proshop2",
+  "name": "proshop",
   "version": "2.0.0",
   "type": "module",
   "description": "Ecommerce application built with the MERN stack",
@@ -14,7 +14,7 @@
     "build": "npm install && npm install --prefix frontend && npm run build --prefix frontend",
     "generate-toc": "markdown-toc -i readme.md"
   },
-  "author": "Brad Traversy",
+  "author": "Kshitiz Sharma",
   "license": "MIT",
   "dependencies": {
     "bcryptjs": "^2.4.3",
@@ -26,7 +26,7 @@
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^7.0.1",
     "multer": "^1.4.5-lts.1",
-    "proshop2": "file:"
+    "proshop": "file:"
   },
   "devDependencies": {
     "@types/express": "^4.17.17",
