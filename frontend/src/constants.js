@@ -2,7 +2,7 @@
 export const BASE_URL =
   process.env.NODE_ENV === "development"
     ? "http://localhost:5000" // Local development server
-    : ""; // Production base URL (could be added if needed)
+    : "https://rainbow-fudge-e35315.netlify.app"; // Production base URL (could be added if needed)
 
 // API endpoint URLs
 export const PRODUCTS_URL = "/api/products"; // Endpoint to fetch products
