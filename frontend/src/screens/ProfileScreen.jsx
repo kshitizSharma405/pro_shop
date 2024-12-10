@@ -1,5 +1,4 @@
-import React from "react";
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { Table, Form, Button, Row, Col } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
@@ -10,32 +9,47 @@ import { FaTimes } from "react-icons/fa";
 import { useProfileMutation } from "../slices/usersApiSlice.js";
 import { setCredentials } from "../slices/authSlice.js";
 import { useGetMyOrdersQuery } from "../slices/orderApiSlice.js";
+
 const ProfileScreen = () => {
+  // State hooks for managing user input
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+
   const dispatch = useDispatch();
-  const { userInfo } = useSelector((state) => state.auth);
+  const { userInfo } = useSelector((state) => state.auth); // Access user info from the Redux store
   const [updateProfile, { isLoading: loadingUpdateProfile }] =
-    useProfileMutation();
-  const { data: orders, isLoading, error } = useGetMyOrdersQuery();
+    useProfileMutation(); // Hook for updating user profile
+
+  const { data: orders, isLoading, error } = useGetMyOrdersQuery(); // Hook for fetching user orders
+
+  // Set initial values from the userInfo object when it changes
   useEffect(() => {
     setName(userInfo.name);
     setEmail(userInfo.email);
-  }, [userInfo, userInfo.name, userInfo.email]);
+  }, [userInfo]);
+
+  // Handler for submitting profile update form
   const submitHandler = async (e) => {
     e.preventDefault();
+
+    // Check if password and confirm password match
     if (password !== confirmPassword) {
       toast.error("Password does not match");
+      return;
     }
+
     try {
+      // Update user profile with new data
       const res = await updateProfile({
         _id: userInfo._id,
         name,
         email,
         password,
       }).unwrap();
+
+      // Update the Redux store with new credentials
       dispatch(setCredentials(res));
       toast.success("Profile updated successfully");
     } catch (error) {
@@ -45,19 +59,23 @@ const ProfileScreen = () => {
 
   return (
     <Row>
+      {/* User Profile Section */}
       <Col md={3}>
         <h2>User Profile</h2>
 
         <Form onSubmit={submitHandler}>
+          {/* Name Input */}
           <Form.Group controlId="name" className="my-2">
             <Form.Label>Name</Form.Label>
             <Form.Control
-              type="name"
+              type="text"
               placeholder="Enter Name"
               value={name}
               onChange={(e) => setName(e.target.value)}
             ></Form.Control>
           </Form.Group>
+
+          {/* Email Input */}
           <Form.Group controlId="email" className="my-2">
             <Form.Label>Email Address</Form.Label>
             <Form.Control
@@ -67,6 +85,8 @@ const ProfileScreen = () => {
               onChange={(e) => setEmail(e.target.value)}
             ></Form.Control>
           </Form.Group>
+
+          {/* Password Input */}
           <Form.Group controlId="password" className="my-2">
             <Form.Label>Password</Form.Label>
             <Form.Control
@@ -76,6 +96,8 @@ const ProfileScreen = () => {
               onChange={(e) => setPassword(e.target.value)}
             ></Form.Control>
           </Form.Group>
+
+          {/* Confirm Password Input */}
           <Form.Group controlId="confirmPassword" className="my-2">
             <Form.Label>Confirm Password</Form.Label>
             <Form.Control
@@ -85,14 +107,22 @@ const ProfileScreen = () => {
               onChange={(e) => setConfirmPassword(e.target.value)}
             ></Form.Control>
           </Form.Group>
+
+          {/* Update Button */}
           <Button type="submit" variant="primary" className="my-2">
             Update
           </Button>
+
+          {/* Loader during profile update */}
           {loadingUpdateProfile && <Loader />}
         </Form>
       </Col>
+
+      {/* Orders Section */}
       <Col md={9}>
         <h2>My Orders</h2>
+
+        {/* Loader or Error Message */}
         {isLoading ? (
           <Loader />
         ) : error ? (
@@ -112,6 +142,7 @@ const ProfileScreen = () => {
               </tr>
             </thead>
             <tbody>
+              {/* Render each order */}
               {orders.map((order) => (
                 <tr key={order._id}>
                   <td>{order._id}</td>
@@ -132,6 +163,7 @@ const ProfileScreen = () => {
                     )}
                   </td>
                   <td>
+                    {/* Order Details Button */}
                     <LinkContainer to={`/order/${order._id}`}>
                       <Button className="btn-sm" variant="light">
                         Details

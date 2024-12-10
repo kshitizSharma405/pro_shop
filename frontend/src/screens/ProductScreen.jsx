@@ -21,39 +21,50 @@ import {
 import Loader from "../components/Loader.jsx";
 import Message from "../components/Message.jsx";
 import { addToCart } from "../slices/cartSlice.js";
+
 const ProductScreen = () => {
-  const { id: productId } = useParams();
+  const { id: productId } = useParams(); // Retrieve product ID from the URL params
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [createReview, { isLoading: loadingProductReview }] =
     useCreateReviewMutation();
-  const [qty, setQty] = useState(1);
-  const [rating, setRating] = useState(0);
-  const [comment, setComment] = useState("");
-  const { userInfo } = useSelector((state) => state.auth);
+  const [qty, setQty] = useState(1); // Default quantity set to 1
+  const [rating, setRating] = useState(0); // Initial rating
+  const [comment, setComment] = useState(""); // Initial comment
+  const { userInfo } = useSelector((state) => state.auth); // Get user information from Redux store
   const {
     data: product,
     isLoading,
     refetch,
     error,
-  } = useGetProductDetailsQuery(productId);
+  } = useGetProductDetailsQuery(productId); // Fetch product details by product ID
+
+  // Handle adding the product to the cart
   const addToCartHandler = () => {
-    dispatch(addToCart({ ...product, qty }));
-    navigate("/cart");
+    dispatch(addToCart({ ...product, qty })); // Dispatch the action to add to cart
+    navigate("/cart"); // Navigate to cart screen
   };
+
+  // Handle review submission
   const submitHandler = async (e) => {
-    e.preventDefault();
+    e.preventDefault(); // Prevent default form submission behavior
+    if (!rating || !comment) {
+      toast.error("Please provide both rating and comment");
+      return;
+    }
     try {
+      // Send review data to the server
       await createReview({
         productId,
         rating,
         comment,
       }).unwrap();
-      refetch();
+      refetch(); // Refetch product details after review submission
       toast.success("Review Submitted");
-      setRating(0);
-      setComment("");
+      setRating(0); // Reset rating field
+      setComment(""); // Reset comment field
     } catch (err) {
+      // Handle errors if review submission fails
       toast.error(err?.data?.message || err?.error);
     }
   };
@@ -65,11 +76,11 @@ const ProductScreen = () => {
       </Link>
 
       {isLoading ? (
-        <Loader />
+        <Loader /> // Show loading spinner while product details are being fetched
       ) : error ? (
         <Message variant="danger">
           {error?.data?.message || error.error}
-        </Message>
+        </Message> // Show error message if the product data fetch fails
       ) : (
         <>
           <Meta title={product.name} />
@@ -131,27 +142,23 @@ const ProductScreen = () => {
                     <ListGroup.Item>
                       <Row>
                         <Col>Qty</Col>
-
                         <Col>
                           <Form.Control
                             as="select"
                             onChange={(e) => setQty(Number(e.target.value))}
                           >
                             {[...Array(product.countInStock).keys()].map(
-                              (x) => {
-                                return (
-                                  <option key={x + 1} value={x + 1}>
-                                    {x + 1}
-                                  </option>
-                                );
-                              }
+                              (x) => (
+                                <option key={x + 1} value={x + 1}>
+                                  {x + 1}
+                                </option>
+                              )
                             )}
                           </Form.Control>
                         </Col>
                       </Row>
                     </ListGroup.Item>
                   )}
-
                   <ListGroup.Item>
                     <Button
                       className="btn-block"
@@ -168,7 +175,6 @@ const ProductScreen = () => {
           </Row>
 
           {/* Review Section */}
-
           <Row className="review">
             <Col md={6}>
               <h2>Reviews</h2>
@@ -216,12 +222,12 @@ const ProductScreen = () => {
                         type="submit"
                         variant="primary"
                       >
-                        Submit
+                        {loadingProductReview ? "Submitting..." : "Submit"}
                       </Button>
                     </Form>
                   ) : (
                     <Message>
-                      Please <Link to="/login">Sign in</Link> to write a review{" "}
+                      Please <Link to="/login">Sign in</Link> to write a review
                     </Message>
                   )}
                 </ListGroup.Item>
@@ -233,4 +239,5 @@ const ProductScreen = () => {
     </>
   );
 };
+
 export default ProductScreen;

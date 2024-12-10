@@ -1,14 +1,16 @@
-# Getting Started with Create React App
+# E-Commerce App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This project is a modern e-commerce web application developed using React, Redux, and integrated with PayPal for payment processing. It includes both public and private routes, an admin panel for managing orders and products, and user authentication features.
+
+The project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
 
-In the project directory, you can run:
+In the project directory, you can run the following commands:
 
 ### `npm start`
 
-Runs the app in the development mode.\
+Runs the app in development mode.\
 Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
 The page will reload when you make changes.\
@@ -16,55 +18,63 @@ You may also see any lint errors in the console.
 
 ### `npm test`
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Launches the test runner in interactive watch mode.\
+For more information about testing with React, check the [Create React App testing documentation](https://facebook.github.io/create-react-app/docs/running-tests).
 
 ### `npm run build`
 
 Builds the app for production to the `build` folder.\
 It correctly bundles React in production mode and optimizes the build for the best performance.
 
-The build is minified and the filenames include the hashes.\
+The build is minified, and the filenames include hashes.\
 Your app is ready to be deployed!
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+For more details, check the [deployment documentation](https://facebook.github.io/create-react-app/docs/deployment).
 
 ### `npm run eject`
 
 **Note: this is a one-way operation. Once you `eject`, you can't go back!**
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+If you're not satisfied with the build tool and configuration choices, you can `eject` at any time. This will remove the single build dependency and copy all configuration files and transitive dependencies (Webpack, Babel, ESLint, etc.) into your project, giving you full control.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+You don't have to eject. The default configuration is suitable for most applications. If you need to tweak the configuration, you can eject when you're ready.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+## Project Structure
 
-## Learn More
+- **`src/index.js`** - The main entry point where the app is rendered. This file includes React Router setup, Redux store integration, and PayPal script provider.
+- **`src/store.js`** - Redux store configuration, which integrates slices like `cartSlice`, `authSlice`, and `apiSlice`.
+- **`src/components/PrivateRoute.jsx`** - Custom route component that checks if the user is authenticated before rendering private routes.
+- **`src/components/AdminRoute.jsx`** - Custom route component that restricts access to admin pages based on the user's role.
+- **`src/screens/`** - Contains the various screens for the public and private routes, such as the home page, product page, cart, login, register, etc.
+- **`src/screens/admin/`** - Contains the admin panel screens for managing products, orders, and users.
+- **`src/assets/styles/`** - Contains custom CSS styles, including a Bootstrap custom stylesheet and index.css for global styling.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## Redux Integration
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+This project uses Redux to manage global state. The store is configured with the following slices:
 
-### Code Splitting
+- **`cartSlice`** - Manages the shopping cart state.
+- **`authSlice`** - Manages authentication state.
+- **`apiSlice`** - Handles API interactions for data fetching.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+### `store.js`
 
-### Analyzing the Bundle Size
+```javascript
+import { configureStore } from "@reduxjs/toolkit";
+import { apiSlice } from "./slices/apiSlice.js";
+import cartSliceReducer from "./slices/cartSlice.js";
+import authSliceReducer from "./slices/authSlice.js";
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+const store = configureStore({
+  reducer: {
+    [apiSlice.reducerPath]: apiSlice.reducer,
+    cart: cartSliceReducer,
+    auth: authSliceReducer,
+  },
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware().concat(apiSlice.middleware),
+  devTools: true,
+});
 
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+export default store;
+```
