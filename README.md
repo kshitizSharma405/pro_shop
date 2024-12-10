@@ -1,12 +1,6 @@
-<<<<<<< HEAD
-# **Proshop2 E-Commerce Application**
+# **ProShop E-Commerce Application**
 
-Proshop2 is a fully functional e-commerce platform built with the MERN (MongoDB, Express.js, React, Node.js) stack. This application provides PayPal payment integration, Redux Toolkit for state management, and a responsive UI with React-Bootstrap.
-=======
-# **Proshop E-Commerce Application**
-
-Proshop is a fully functional e-commerce platform built with the MERN (MongoDB, Express.js, React, Node.js) stack. This application provides PayPal payment integration, Redux Toolkit for state management, and a responsive UI with React-Bootstrap.
->>>>>>> 34a639b858edfa6f19693e3a62e7db1eccf4de03
+ProShop is a fully functional e-commerce platform built with the MERN (MongoDB, Express.js, React, Node.js) stack. This application provides PayPal payment integration, Redux Toolkit for state management, and a responsive UI with React-Bootstrap.
 
 ---
 
@@ -39,10 +33,9 @@ Proshop is a fully functional e-commerce platform built with the MERN (MongoDB, 
 
 ### 1. Clone the Repository
 
-```bash
-git clone https://github.com/your-username/proshop2.git
-cd proshop2
-```
+````bash
+git clone https://github.com/your-username/proshop.git
+cd proshop
 
 ### 2. Install Dependencies
 
@@ -51,7 +44,7 @@ Run the following commands to install dependencies for both the backend and fron
 ```bash
 npm install
 npm install --prefix frontend
-```
+````
 
 ### 3. Add Environment Variables
 
@@ -90,11 +83,8 @@ Key `npm` scripts available in the project:
 
 ## **Live Demo**
 
-<<<<<<< HEAD
-[Proshop2 Live Demo](https://e-comm-platform.onrender.com)
 =======
-[Proshop Live Demo](https://e-comm-platform.onrender.com)
->>>>>>> 34a639b858edfa6f19693e3a62e7db1eccf4de03
+[Proshop Live Demo](https://rainbow-fudge-e35315.netlify.app/)
 
 ---
 
