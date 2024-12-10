@@ -1,8 +1,9 @@
 // Base URL for API requests based on the environment (development or production)
-export const BASE_URL =
-  process.env.NODE_ENV === "production"
-    ? "https://rainbow-fudge-e35315.netlify.app" // Production base URL (could be added if needed)
-    : "http://localhost:5000"; // Local development server
+// export const BASE_URL =
+//   process.env.NODE_ENV === "production"
+//     ? "https://rainbow-fudge-e35315.netlify.app" // Production base URL (could be added if needed)
+//     : "http://localhost:5000"; // Local development server
+export const BASE_URL = "";
 
 // API endpoint URLs
 export const PRODUCTS_URL = "/api/products"; // Endpoint to fetch products
