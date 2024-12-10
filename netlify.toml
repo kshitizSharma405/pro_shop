@@ -1,9 +1,0 @@
-[build]
-  command = "npm run build" # Command to build the app
-  publish = "frontend/build" # Folder to deploy (e.g., React build folder)
-  functions = "netlify/functions" # Folder for serverless functions
-
-[[redirects]]
-  from = "/api/*"
-  to = "/.netlify/functions/:splat"
-  status = 200
