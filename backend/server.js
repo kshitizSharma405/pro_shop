@@ -25,7 +25,7 @@ const corsOptions = {
   // In production, allow requests only from the actual front-end domain (replace with the real domain).
   origin:
     process.env.NODE_ENV === "production"
-      ? "" // Replace with actual front-end URL in production
+      ? "https://pro-shop-fvqq.onrender.com/" // Replace with actual front-end URL in production
       : "http://localhost:3000", // Local development URL for React app
   credentials: true, // Allow sending cookies (credentials) along with requests
 };
